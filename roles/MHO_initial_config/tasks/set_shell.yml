@@ -1,0 +1,4 @@
+---
+- name: set shell
+  raw: set user admin shell /bin/bash
+  #delegate_to: "{{ MHO }}"

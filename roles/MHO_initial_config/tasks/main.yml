@@ -1,0 +1,4 @@
+---
+- include_tasks: ssh_check_status.yml
+- include_tasks: set_admin_pwd.yml
+- include_tasks: set_shell.yml
