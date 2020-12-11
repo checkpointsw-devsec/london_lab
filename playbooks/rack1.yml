@@ -1,0 +1,15 @@
+---
+- name: test {{ target }}
+  hosts: "{{ target }}"
+  connection: ssh
+  vars:
+
+      ansible_user: admin # ssh user
+      ansible_ssh_pass: vpn123 # ssh password
+      # use 
+      ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -W %h:%p {{ lookup('env','PI_USERNAME') }}@{{ lookup('env','PI_JUMPHOST1') }} -p 22"
+  gather_facts: no
+  tasks:
+
+    - name: ping test
+      ping:

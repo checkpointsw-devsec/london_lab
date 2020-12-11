@@ -1,0 +1,19 @@
+#!/bin/bash
+# Execute with source ./filename
+# Update the file with the credentials and IP of the lab
+
+# Rasbary PI Credentials
+export PI_JUMPHOST1=IP_of_PI_jumphost
+export PI_USERNAME=ssh_user_on_PI_jumphost>
+export PI_PASSWORD=password_on_PI_jumphost>
+
+#Maestro Hypervisor Orchestrator (MHO) credentials and parmeters
+export MHO_IP=<IP of MHO>
+export MHO_TEMP_IP=192.168.1.1
+
+# mgmt_api credentials
+#export CHECKPOINT_SERVER=192.168.233.10
+#export CHECKPOINT_USERNAME=api_user
+#export CHECKPOINT_PASSWORD=api_user_password
+#export CHECKPOINT_CONTEXT=web_api
+#export CHECKPOINT_DOMAIN=mydomainname
