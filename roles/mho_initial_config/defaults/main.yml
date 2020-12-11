@@ -1,0 +1,7 @@
+# Default values for variables in role MHO_initial_config
+---
+#IP address to pi terminal connected to Maestro Orchestrator 
+#pi_ip: 172.23.9.90
+
+#Maestro Orchestrator managmenet IP
+#MHO_ip: 172.23.9.31

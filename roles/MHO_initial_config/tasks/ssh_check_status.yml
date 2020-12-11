@@ -1,8 +1,0 @@
----
-- name: Wait 300 seconds for port 22 on {{ MHO_ip }} to become open and contain "OpenSSH"
-  wait_for:
-    port: 22
-    host: "{{ MHO }}"
-    search_regex: OpenSSH
-    delay: 10
-  delegate_to: "{{ pi_ip }}"

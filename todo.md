@@ -1,10 +1,10 @@
 I think, this is what I want to do (. If you can get me the basics in place, I can work it through once we get started, and then extend it to the other member (so I need ability to have variables, depending on what I am working on).
 
 - ANSIBLE: SSH to  xx@172.23.9.90 
-  - PI: echo "" > /home/pi/.ssh/known_hosts
-  - PI: ssh admin@192.168.1.1
-  - PI: <user>
-  - PI: <password>
+  - done PI: echo "" > /home/pi/.ssh/known_hosts
+  - done PI: ssh admin@192.168.1.1
+  - done PI: <user>
+  - done PI: <password>
     - MHO: lock database override
     - MHO: set management interface Mgmt1
     - MHO: set static-route default nexthop gateway address 192.168.1.254 off

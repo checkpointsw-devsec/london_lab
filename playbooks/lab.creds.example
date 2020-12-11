@@ -2,7 +2,7 @@
 # Execute with source ./filename
 # Update the file with the credentials and IP of the lab
 
-# Rasbary PI Credentials
+# Rasbary PI jump host credentials
 export PI_JUMPHOST1=IP_of_PI_jumphost
 export PI_USERNAME=ssh_user_on_PI_jumphost>
 export PI_PASSWORD=password_on_PI_jumphost>

@@ -1,0 +1,4 @@
+---
+# simple test to verify that ansoble can connect to the host
+- name: ping test
+  ping:

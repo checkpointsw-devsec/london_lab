@@ -1,0 +1,40 @@
+---
+- name: Build a dynamic inventory
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+
+    - name: Add Maestro Hypervisor Orchestrator (MHO) hosts
+      add_host:
+        hostname: "{{ item.hostname }}"
+        ansible_host: "{{ item.target }}"
+        groups: londonlab
+        target: "{{ item.target }}"
+        ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
+        ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
+        ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ lookup('env','PI_JUMPHOST1') }} -p 22"
+      with_items:
+      - { hostname: MiniRack5-MHO1, target: "{{ lookup('env','MINIRACK5_MHO1_IP') }}", }
+ #     - { hostname: mho2, target: 192.168.233.20, }
+ #     - { hostname: mho3, target: 192.168.233.30, }
+      - { hostname: mho-temp, target: "{{ lookup('env','MHO_TEMP_IP') }}", }
+ 
+    - name: Add Rasbary PI jump hosts
+      add_host:
+        hostname: "{{ item.hostname }}"
+        ansible_host: "{{ item.target }}"
+        groups: londonlab
+        target: "{{ item.target }}"
+        ansible_user: "{{ lookup('env','PI_USERNAME') }}"
+        ansible_ssh_pass: "{{ lookup('env','PI_PASSWORD') }}"
+      with_items:
+      - { hostname: jumphost1, target: "{{ lookup('env','PI_JUMPHOST1') }}", }
+ #     - { hostname: jumphost2, target: "{{ lookup('env','PI_JUMPHOST2') }}", }
+ #     - { hostname: jumphost3, target: "{{ lookup('env','PI_JUMPHOST3') }}", }
+
+- name:  Initial configuration
+  hosts: mho-temp
+  gather_facts: no
+  roles:
+  - role: ../roles/mho_initial_config
