@@ -1,13 +1,37 @@
 ---
+- name: Build inventory
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Create a dynamic inventory
+      add_host:
+        hostname: "{{ item.hostname }}"
+        ansible_host: "{{ item.target }}"
+        groups: lodonlab
+        target: "{{ item.target }}"
+        ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
+        ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
+      with_items:
+      - { hostname: mho1, target: 192.168.233.10, }
+      - { hostname: mho2, target: 192.168.233.20, }
+      - { hostname: mho3, target: 192.168.233.30, }
+      - { hostname: mho-temp, target: 192.168.233.20, }
+
+- name:  Add domains to mds server
+  hosts: "{{ target }}"
+  gather_facts: no
+  roles:
+  - role: roles/mho_initial_config
+
 - name: test {{ target }}
   hosts: "{{ target }}"
   connection: ssh
   vars:
-
-      ansible_user: admin # ssh user
-      ansible_ssh_pass: vpn123 # ssh password
+      ansible_user: "{{ lookup('env','MHO_ADMIN') }}" # ssh user
+      ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}" # ssh password
       # The ProxyCommand will use PI_JUMPHOST has the proxy for SSH communication to the Ansible host
-      ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -W %h:%p {{ lookup('env','PI_USERNAME') }}@{{ lookup('env','PI_JUMPHOST1') }} -p 22"
+      ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ lookup('env','PI_JUMPHOST1') }} -p 22"
   gather_facts: no
   tasks:
 

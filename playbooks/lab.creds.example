@@ -8,8 +8,10 @@ export PI_USERNAME=ssh_user_on_PI_jumphost>
 export PI_PASSWORD=password_on_PI_jumphost>
 
 #Maestro Hypervisor Orchestrator (MHO) credentials and parmeters
-export MHO_IP=<IP of MHO>
+export MHO_IP=IP_of_MHO
 export MHO_TEMP_IP=192.168.1.1
+export MHO_ADMIN=api_user
+export MHO_ADMIN_PASSWORD=api_user_password
 
 # mgmt_api credentials
 #export CHECKPOINT_SERVER=192.168.233.10
