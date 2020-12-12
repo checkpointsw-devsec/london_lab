@@ -1,5 +1,19 @@
+# Main tasks file for mho_initial_config
 ---
-# - include_tasks: ping_test.yml
-- include_tasks: ssh_check_status.yml
-#- include_tasks: set_admin_pwd.yml
-#- include_tasks: set_shell.yml
+- name: Lock database for user
+  raw: lock database override
+  ignore_errors: yes
+  ignore_unreachable: yes
+  register: lock_database_result
+  vars:
+    ansible_user: admin
+    ansible_ssh_pass: admin  # This is the default installation passord in GAIA, it is fine to have them in clear text
+
+- include_tasks: add_user.yml
+  vars:
+    ansible_user: admin
+    ansible_ssh_pass: admin # This is the default installation passord in GAIA, it is fine to have them in clear text
+
+- include_tasks: set_admin_pwd.yml
+- include_tasks: set_time_dns.yml
+- include_tasks: set_hostname_network.yml

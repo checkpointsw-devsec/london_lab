@@ -5,31 +5,31 @@ I think, this is what I want to do (. If you can get me the basics in place, I c
   - done PI: ssh admin@192.168.1.1
   - done PI: <user>
   - done PI: <password>
-    - MHO: lock database override
-    - MHO: set management interface Mgmt1
-    - MHO: set static-route default nexthop gateway address 192.168.1.254 off
-    - MHO: set static-route default nexthop gateway address 172.23.9.1 priority 6 on
-    - MHO: set static-route default nexthop gateway address 172.23.9.254 priority 3 on
-    - MHO: set dns primary 1.1.1.1
-    - MHO: set format date dd-mmm-yyyy
-    - MHO: set format time 24-hour
-    - MHO: set format netmask Dotted
-    - MHO: set hostname MiniRack5-MHO1
-    - MHO: set ntp active on
-    - MHO: set ntp server primary pool.ntp.org version 4
-    - MHO: set timezone Europe / London
-    - MHO: set interface Mgmt1 state on
-    - MHO: set interface Mgmt1 auto-negotiation on
+    - done MHO: lock database override
+    - done MHO: set management interface Mgmt1
+    - done MHO: set static-route default nexthop gateway address 192.168.1.254 off
+    - done MHO: set static-route default nexthop gateway address 172.23.9.1 priority 6 on
+    - done MHO: set static-route default nexthop gateway address 172.23.9.254 priority 3 on
+    - done MHO: set dns primary 1.1.1.1
+    - done MHO: set format date dd-mmm-yyyy
+    - done MHO: set format time 24-hour
+    - done MHO: set format netmask Dotted
+    - done MHO: set hostname MiniRack5-MHO1
+    - done MHO: set ntp active on
+    - done MHO: set ntp server primary pool.ntp.org version 4
+    - done MHO: set timezone Europe / London
+    - done MHO: set interface Mgmt1 state on
+    - done MHO: set interface Mgmt1 auto-negotiation on
 
 - ANSIBLE: PI: *** Start ping to 172.23.9.31
-  - MHO: set interface Mgmt1 ipv4-address 172.23.9.31 mask-length 2
+  - done MHO: set interface Mgmt1 ipv4-address 172.23.9.31 mask-length 2
 - ANSIBLE: PI: ***connection will be lost
 - ANSIBLE: PI: *** Confirm ping is possible to IP above. 
   - PI: ssh admin@172.23.9.31
   - PI: <user>
   - PI: <password>
-    - MHO: set expert-password (set to vpn123)
-    - MHO: expert
+    - done MHO: set expert-password (set to vpn123)
+    - done MHO: expert
     - MHO: mkdir –p /var/log/hfa 
     - MHO: cd /var/log/hfa/
     - MHO: ftp 172.23.9.90 
