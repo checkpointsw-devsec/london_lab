@@ -15,6 +15,7 @@
 *.tfstate*
 fingerprints.json
 terraform-provider-checkpoint
+*.ignore
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

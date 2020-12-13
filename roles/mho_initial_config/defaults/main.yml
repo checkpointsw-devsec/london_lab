@@ -1,11 +1,2 @@
 # Default values for variables in role MHO_initial_config
 ---
-# Password has for gaia admin user
-#password hash of defult password admin
-#gaia_admin_pwd_hash: $1$hl94E1$fEB/9GEHoAlopP5N5IxiV/
-
-  #IP address to pi terminal connected to Maestro Orchestrator 
-#pi_ip: 172.23.9.90
-
-#Maestro Orchestrator managmenet IP
-#MHO_ip: 172.23.9.31

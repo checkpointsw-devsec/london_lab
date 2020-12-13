@@ -1,6 +1,6 @@
 ---
 # This task will set hostname, routing and managemnet interface if not already set
-- name: Check if hostname is set to MiniRack5-MHO1
+- name: Check if hostname is set to "{{ ansible_hostname }}"
   command: hostname
   register: check_hostname_result
 
@@ -10,17 +10,13 @@
   - name: Set hostname, netmask format, routing and management interface ip
     command: "{{ item }}"
     with_items:
-      - clish -s -c 'set hostname MiniRack5-MHO1'
+      - clish -s -c 'set hostname {{ ansible_hostname }}'
       - clish -s -c 'set format netmask dotted'
       - clish -s -c 'set static-route default nexthop gateway address 192.168.1.254 off'
       - clish -s -c 'set static-route default nexthop gateway address 172.23.9.1 priority 6 on'
       - clish -s -c 'set static-route default nexthop gateway address 172.23.9.254 priority 3 on'
-      #- clish -s -c 'set management interface Mgmt1'
-      #- clish -s -c 'set interface Mgmt1 state on'
-      #- clish -s -c 'set interface Mgmt1 auto-negotiation on'
-      #- clish -s -c 'set interface Mgmt1 ipv4-address 172.23.9.31 mask-length 2'
-      - clish -s -c 'set management interface eth3'
-      - clish -s -c 'set interface eth3 state on'
-      - clish -s -c 'set interface eth3 auto-negotiation on'
-      - clish -s -c 'set interface eth3 ipv4-address 172.23.9.31 mask-length 2'
-  when: check_hostname_result is not search("MiniRack5-MHO1")
+      - clish -s -c 'set management interface Mgmt1'
+      - clish -s -c 'set interface Mgmt1 state on'
+      - clish -s -c 'set interface Mgmt1 auto-negotiation on'
+      - clish -s -c 'set interface Mgmt1 ipv4-address 172.23.9.31 mask-length 2'
+  when: check_hostname_result.stdout != ansible_hostname

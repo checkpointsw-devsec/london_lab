@@ -1,0 +1,15 @@
+---
+- name: Copy {{ lookup('env','MHO_JHF_FILE=') }} to {{ ansible_hostname }}
+  copy:
+    src: /files/{{ lookup('env','MHO_JHF_FILE=') }}
+    dest: /var/tmp/hfa/
+
+- name: Import {{ lookup('env','MHO_JHF_FILE=') }} to CPUSE on {{ ansible_hostname }} 
+  command: clish -c 'installer import local /var/log/hfa/{{ lookup('env','MHO_JHF_FILE=') }}'
+  register: jhf_import_result
+
+#- name: check ID JHF installation file in CPUSE
+#  command: xxxx
+
+- name: install {{ lookup('env','MHO_JHF_FILE=') }} on {{ ansible_hostname }}
+  - MHO: installer install {{ jhf_import_result.stdout.id }}

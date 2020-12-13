@@ -1,32 +1,51 @@
 # Main tasks file for mho_initial_config
 ---
-- name: Add Maestro Hypervisor Orchestrator (MHO) hosts to inventory
+- name: Add Maestro Hypervisor Orchestrator (MHO) hosts accessed through jumphost to inventory.
   add_host:
-    hostname: "{{ item.hostname }}"
-    ansible_host: "{{ item.target }}"
+    hostname: jump.to.{{ item.hostname }}
+    ansible_hostname: "{{ item.hostname }}"
+    ansible_host: "{{ item.ansible_host}}"
     groups: 
       - londonlab
-      - mho
-    target: "{{ item.target }}"
+      - jump.to.mho
     ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
     ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
     ansible_python_interpreter: "{{ lookup('env','MHO_PYTHON_INTERPRETER') }}"
-    ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ lookup('env','PI_JUMPHOST1') }} -p 22"
+    ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ item.pi_jumphost }} -p 22"
   with_items:
-  - { hostname: MiniRack5-MHO1, target: "{{ lookup('env','MINIRACK5_MHO1_IP') }}", }
-  #- { hostname: mho2, target: 192.168.233.20, }
-  #- { hostname: mho3, target: 192.168.233.30, }
-  - { hostname: mho-default-ip, target: "{{ lookup('env','MHO_TEMP_IP') }}", }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
+  - { hostname: "{{ lookup('env','MINIRACKX_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACKX_JUMPHOST') }}" }
+  #- { hostname: "{{ lookup('env','MINIRACKY_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACKY_JUMPHOST') }}" }
+
+- name: Add Maestro Hypervisor Orchestrator (MHO) hosts to inventory
+  add_host:
+    hostname: "{{ item.hostname }}"
+    ansible_hostname: "{{ item.hostname }}"
+    ansible_host: "{{ item.ansible_host }}"
+    groups: 
+      - londonlab
+      - mho
+    #target: "{{ item.target }}"
+    ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
+    ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
+    ansible_python_interpreter: "{{ lookup('env','MHO_PYTHON_INTERPRETER') }}"
+#    ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ lookup('env','PI_JUMPHOST1') }} -p 22"
+  with_items:
+  - { hostname: MiniRack5-MHO1, ansible_host: "{{ lookup('env','MINIRACK5_MHO1_IP') }}" }
+  #- { hostname: mho2, ansible_host: 192.168.233.20 }
+  #- { hostname: mho3, ansible_host: 192.168.233.30 }
+  #- { hostname: mho-default-ip, ansible_host: "{{ lookup('env','MHO_TEMP_IP') }}" }
 
 - name: Add Rasbary PI jump hosts to inventory
   add_host:
     hostname: "{{ item.hostname }}"
-    ansible_host: "{{ item.target }}"
+    ansible_hostname: "{{ item.hostname }}"
+    ansible_host: "{{ item.ansible_host }}"
     groups: londonlab
-    target: "{{ item.target }}"
+    #target: "{{ item.target }}"
     ansible_user: "{{ lookup('env','PI_USERNAME') }}"
     ansible_ssh_pass: "{{ lookup('env','PI_PASSWORD') }}"
   with_items:
-  - { hostname: jumphost1, target: "{{ lookup('env','PI_JUMPHOST1') }}", }
-  #- { hostname: jumphost2, target: "{{ lookup('env','PI_JUMPHOST2') }}", }
-  #- { hostname: jumphost3, target: "{{ lookup('env','PI_JUMPHOST3') }}", }
+  - { hostname: jumphost1, ansible_host: "{{ lookup('env','PI_JUMPHOST1') }}" }
+  #- { hostname: jumphost2, ansible_host: "{{ lookup('env','PI_JUMPHOST2') }}" }
+  #- { hostname: jumphost3, ansible_host: "{{ lookup('env','PI_JUMPHOST3') }}" }

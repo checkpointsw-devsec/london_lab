@@ -21,26 +21,26 @@ I think, this is what I want to do (. If you can get me the basics in place, I c
     - done MHO: set interface Mgmt1 state on
     - done MHO: set interface Mgmt1 auto-negotiation on
 
-- ANSIBLE: PI: *** Start ping to 172.23.9.31
+- done ANSIBLE: PI: *** Start ping to 172.23.9.31
   - done MHO: set interface Mgmt1 ipv4-address 172.23.9.31 mask-length 2
-- ANSIBLE: PI: ***connection will be lost
-- ANSIBLE: PI: *** Confirm ping is possible to IP above. 
-  - PI: ssh admin@172.23.9.31
-  - PI: <user>
-  - PI: <password>
+- done ANSIBLE: PI: ***connection will be lost
+- done ANSIBLE: PI: *** Confirm ping is possible to IP above. 
+  - done PI: ssh admin@172.23.9.31
+  - done PI: <user>
+  - done PI: <password>
     - done MHO: set expert-password (set to vpn123)
     - done MHO: expert
-    - MHO: mkdir –p /var/log/hfa 
-    - MHO: cd /var/log/hfa/
-    - MHO: ftp 172.23.9.90 
-    - MHO: <user> 
-    - MHO: <password>
-    - MHO: bin
-    - MHO: get <filename>
-    - MHO: bye
-    - MHO: installer import local /var/log/hfa/<filename>
-- ANSIBLE:  MHO: **test for ID of filename above) 
-  - MHO: installer install <id>
+    - done MHO: mkdir –p /var/log/hfa 
+    - done MHO: cd /var/log/hfa/
+    - done MHO: ftp 172.23.9.90 
+    - done MHO: <user> 
+    - done MHO: <password>
+    - done MHO: bin
+    - done MHO: get <filename>
+    - done MHO: bye
+    - done MHO: installer import local /var/log/hfa/<filename>
+- done ANSIBLE:  MHO: **test for ID of filename above) 
+  - done MHO: installer install <id>
 - ANSIBLE:  MHO: **device will reboot. Wait approx. 5 mins, and check you could ping, then could not (as it reboots), then pings again
 - ANSIBLE:  ssh admin@172.23.9.31
 - ANSIBLE:  <user>
