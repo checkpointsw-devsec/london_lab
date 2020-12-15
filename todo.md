@@ -1,5 +1,10 @@
 I think, this is what I want to do (. If you can get me the basics in place, I can work it through once we get started, and then extend it to the other member (so I need ability to have variables, depending on what I am working on).
 
+- To reset the enviroment . Need to do it in serial since the are gooing to boot up with same ip 192.168.1.1
+ssh to MHO 1 & 2 of Minirack 5 and 13
+set fcd revert Gaia_R80.20SP
+
+
 - ANSIBLE: SSH to  xx@172.23.9.90 
   - done PI: echo "" > /home/pi/.ssh/known_hosts
   - done PI: ssh admin@192.168.1.1
@@ -54,9 +59,22 @@ I think, this is what I want to do (. If you can get me the basics in place, I c
   - MHO: set maestro port 1/5/1 qsfp-mode 1G
   - MHO: set maestro port 1/6/1 qsfp-mode 1G
   - MHO: set maestro  port 1/47/1 type site_sync
-  - MHO: set maestro  port 1/47/1 admin-state down
+  - MHO: set maestro  port 1/47/1 admin-state down (run it on Minirack5-MHO1&2 but not on Minirack13-MHO1&2)
   - MHO: expert <password>
   - MHO: rm /etc/.asg_auto_confirm
   - MHO: exit
 
 Now repeat for different IP address/name/settings etc.
+
+
+- Four Miniracks
+
+  - Minirack5
+    - MiniRack5-MHO1 ( IP )
+    - MiniRack5-MHO2 ( IP )
+  - Minirack13
+      - MiniRack13-MHO1 ( IP )
+      - MiniRack13-MHO2 ( IP )
+  - EMEA-MHO1 (DemoLab)
+     - EMEA-Orch-1 ( IP )
+     - EMEA-Orch-2 (IP )
