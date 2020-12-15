@@ -7,13 +7,13 @@
   - role: ../roles/build_inventory
 
 - name:  Initial configuration through minirack jumphost
-  hosts: jump.to.mho
+  hosts: MiniRack13-MHO2
   gather_facts: no
   roles:
   - role: ../roles/mho_initial_config
 
-- name:  Import and install JHF on MHO
-  hosts: mho
-  gather_facts: no
-  roles:
-  - role: ../roles/mho_install_jhf  
+#- name:  Import and install JHF on MHO
+#  hosts: mho
+#  gather_facts: no
+#  roles:
+#  - role: ../roles/mho_install_jhf  

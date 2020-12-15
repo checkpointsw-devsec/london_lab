@@ -18,5 +18,5 @@
       - clish -s -c 'set management interface Mgmt1'
       - clish -s -c 'set interface Mgmt1 state on'
       - clish -s -c 'set interface Mgmt1 auto-negotiation on'
-      - clish -s -c 'set interface Mgmt1 ipv4-address 172.23.9.31 mask-length 2'
+      - clish -s -c 'set interface Mgmt1 ipv4-address 172.23.9.34 mask-length 24'
   when: check_hostname_result.stdout != ansible_hostname
