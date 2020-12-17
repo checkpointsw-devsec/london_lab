@@ -14,7 +14,8 @@
     ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ item.pi_jumphost }} -p 22"
   with_items:
   #- { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK13_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
+  #- { hostname: "{{ lookup('env','MINIRACK13_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}" }
   #- { hostname: "{{ lookup('env','MINIRACKY_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACKY_JUMPHOST') }}" }
 
 - name: Add Maestro Hypervisor Orchestrator (MHO) hosts to inventory

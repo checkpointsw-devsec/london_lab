@@ -7,7 +7,7 @@
   - role: ../roles/build_inventory
 
 - name:  Initial configuration through minirack jumphost
-  hosts: MiniRack13-MHO2
+  hosts: jump.to.MiniRack5-MHO2
   gather_facts: no
   roles:
   - role: ../roles/mho_initial_config

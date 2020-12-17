@@ -1,14 +1,17 @@
 ---
 # This task will set hostname, routing and managemnet interface if not already set
 - name: Check if hostname is set to "{{ ansible_hostname }}"
-  command: hostname
+  raw: hostname
   register: check_hostname_result
+
+- debug:
+    msg: "{{ check_hostname_result.stdout }}"
 
 - name: Make changes when hostname was not defiend
   block:
 
   - name: Set hostname, netmask format, routing and management interface ip
-    command: "{{ item }}"
+    raw: "{{ item }}"
     with_items:
       - clish -s -c 'set hostname {{ ansible_hostname }}'
       - clish -s -c 'set format netmask dotted'
@@ -18,5 +21,5 @@
       - clish -s -c 'set management interface Mgmt1'
       - clish -s -c 'set interface Mgmt1 state on'
       - clish -s -c 'set interface Mgmt1 auto-negotiation on'
-      - clish -s -c 'set interface Mgmt1 ipv4-address 172.23.9.34 mask-length 24'
+      - clish -s -c 'set interface Mgmt1 ipv4-address 172.23.9.32 mask-length 24'
   when: check_hostname_result.stdout != ansible_hostname
