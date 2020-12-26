@@ -1,11 +1,12 @@
-# Main tasks file for mho_initial_config
+# Main tasks file for build_inventory
 ---
 - name: Add Maestro Hypervisor Orchestrator (MHO) hosts accessed through jumphost to inventory.
   add_host:
     hostname: jump.to.{{ item.hostname }}
     ansible_hostname: "{{ item.hostname }}"
     ansible_host: "{{ item.ansible_host}}"
-    groups: 
+    new_ip: "{{ item.new_ip }}"
+    groups:
       - londonlab
       - jump.to.mho
     ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
@@ -13,8 +14,8 @@
     ansible_python_interpreter: "{{ lookup('env','MHO_PYTHON_INTERPRETER') }}"
     ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ item.pi_jumphost }} -p 22"
   with_items:
-  #- { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK5_MHO1_IP') }}" }
+  #- { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
   #- { hostname: "{{ lookup('env','MINIRACK13_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}" }
   #- { hostname: "{{ lookup('env','MINIRACKY_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACKY_JUMPHOST') }}" }
 
@@ -23,8 +24,8 @@
     hostname: "{{ item.hostname }}"
     ansible_hostname: "{{ item.hostname }}"
     ansible_host: "{{ item.ansible_host }}"
-    mho_default_ip: "{{ lookup('env','MHO_DEFAULT_IP') }}"
-    groups: 
+    pi_jumphost: "{{ item.pi_jumphost }}"
+    groups:
       - londonlab
       - mho
     #target: "{{ item.target }}"
@@ -32,7 +33,8 @@
     ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
     ansible_python_interpreter: "{{ lookup('env','MHO_PYTHON_INTERPRETER') }}"
   with_items:
-  - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK5_MHO2_IP') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK5_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
+  # - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK5_MHO2_IP') }}" }
   #- { hostname: mho2, ansible_host: 192.168.233.20 }
   #- { hostname: mho3, ansible_host: 192.168.233.30 }
   #- { hostname: mho-default-ip, ansible_host: "{{ lookup('env','MHO_TEMP_IP') }}" }
@@ -42,7 +44,8 @@
     hostname: "{{ item.hostname }}"
     ansible_hostname: "{{ item.hostname }}"
     ansible_host: "{{ item.ansible_host }}"
-    groups: londonlab
+    mho_default_ip: "{{ lookup('env','MHO_DEFAULT_IP') }}"
+    groups: jumphost
     #target: "{{ item.target }}"
     ansible_user: "{{ lookup('env','PI_USERNAME') }}"
     ansible_ssh_pass: "{{ lookup('env','PI_PASSWORD') }}"

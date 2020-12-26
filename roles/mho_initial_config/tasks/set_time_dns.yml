@@ -1,14 +1,14 @@
 ---
 # This task will set time and DNS if not already set
 - name: Check if DNS is set to 1.1.1.1
-  raw: clish -c 'show dns primary'
+  command: clish -c 'show dns primary'
   register: check_dns_result
 
 - name: Make changes when dns is not set to 1.1.1.1
   block:
 
   - name: Set time format, time zone, NTP, and DNS
-    raw: "{{ item }}"
+    command: "{{ item }}"
     with_items:
       - clish -s -c 'set dns primary 1.1.1.1'
       - clish -s -c 'set format date dd-mmm-yyyy'

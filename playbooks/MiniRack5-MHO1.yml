@@ -7,13 +7,13 @@
   - role: ../roles/build_inventory
 
 - name:  Reset MHO to factory default
-  hosts: MiniRack5-MHO2
+  hosts: MiniRack5-MHO1
   gather_facts: no
   roles:
   - role: ../roles/mho_reset
 
 - name:  Initial configuration through minirack jumphost
-  hosts: jump.to.MiniRack5-MHO2
+  hosts: jump.to.MiniRack5-MHO1
   gather_facts: no
   roles:
   - role: ../roles/mho_initial_config

@@ -1,20 +1,21 @@
 # Main tasks file for mho_reset
 ---
-- name: Reset to factory defaut on {{ ansible_hostname }}
+- name: lock database override on {{ ansible_hostname }}
   ignore_errors: yes
-  raw: "{{ item }}"
-  with_items:
-    - clish -c 'lock database override'
-    - clish -c 'set fcd revert Gaia_R80.20SP'
+  command: clish -c 'lock database override'
 
----
-- name: Wait 3 minutes and then poll every 10 second for 5 minutes to check if port 22 on {{ ansible_host }} is active and contain "OpenSSH"
+- name: Reset to factory defaut on {{ ansible_hostname }}
+  shell: "clish -c 'set fcd revert Gaia_R80_20SP' <<< Yes"
+
+- name: Wait 1 minute and then from {{ pi_jumphost }} poll every 10 second for 5 minutes to check if port 22 on {{ ansible_hostname }} default ip 192.168.1.1 is active and contain "OpenSSH"
   wait_for:
     port: 22
-    host: "{{ mho_default_ip }}"
+    host: 192.168.1.1
     search_regex: OpenSSH
-    delay: 180
+    delay: 60
     sleep: 10
-  #connection: local 
-  delegate_to: "{{ hostvars['MiniRack5Pi'].ansible_host }}"
-
+  delegate_to: "{{ pi_jumphost }}"
+  vars:
+    ansible_user: "{{ lookup('env','PI_USERNAME') }}"
+    ansible_ssh_pass: "{{ lookup('env','PI_PASSWORD') }}"
+  

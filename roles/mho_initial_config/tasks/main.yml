@@ -14,6 +14,7 @@
     ansible_user: admin
     ansible_ssh_pass: admin # This is the default installation passord in GAIA, it is fine to have them in clear text
 
+- include_tasks: clear_python_env.yml
 - include_tasks: set_admin_pwd.yml
 - include_tasks: set_time_dns.yml
 - include_tasks: set_hostname_network.yml
