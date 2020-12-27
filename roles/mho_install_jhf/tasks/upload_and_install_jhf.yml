@@ -1,15 +1,29 @@
 ---
-- name: Copy {{ lookup('env','MHO_JHF_FILE=') }} to {{ ansible_hostname }}
-  copy:
-    src: /files/{{ lookup('env','MHO_JHF_FILE=') }}
-    dest: /var/tmp/hfa/
+- name: Import {{ mho_jhf_file }} to CPUSE on {{ ansible_hostname }} 
+  command: clish -c 'installer import ftp {{ lookup('env','FTP_SRV') }} path {{ mho_jhf_file }} username {{ lookup('env','FTP_UID') }} password {{ lookup('env','FTP_PWD') }} not-interactive'
+  register: jhf_import_result
 
-- name: Import {{ lookup('env','MHO_JHF_FILE=') }} to CPUSE on {{ ansible_hostname }} 
-  command: clish -c 'installer import local /var/log/hfa/{{ lookup('env','MHO_JHF_FILE=') }}'
-  #register: jhf_import_result
+- name: print the result of CPUSE import
+  debug: 
+    msg: "{{ jhf_import_result.stdout_lines }}"
 
-#- name: check ID JHF installation file in CPUSE
-#  command: xxxx
+- name: Pause for 15 seconds to allow import to complete
+  pause: 
+    seconds: 15
 
-- name: install {{ lookup('env','MHO_JHF_FILE=') }} on {{ ansible_hostname }}
-  - MHO: installer install {{ lookup('env','MHO_JHF_FILE=') }}'
+- name: install {{ mho_jhf_file }} on {{ ansible_hostname }} (set and forget)
+  shell: clish -c 'installer install {{ mho_jhf_file }}' <<< Y
+  register: jhf_install_result
+  async: 1800
+  poll: 0
+
+- name: Check on CPUSE JHF install process
+  command: clish -c 'show installer package {{ mho_jhf_file }}'
+  register: job_result
+  until: job_result is regex("Status:\s*Installed")
+  retries: 100
+  delay: 5
+
+- name: Show result of CPUSE install
+  debug:
+    msg: "{{ job_result.stdout_lines }}"

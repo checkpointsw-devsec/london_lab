@@ -4,7 +4,7 @@
     port: 22
     host: "{{ ansible_host }}"
     search_regex: OpenSSH
-    delay: 10
+    delay: 2
   connection: local
   #delegate_to: "{{ hostvars['jumphost1'].ansible_host }}"
   #vars:

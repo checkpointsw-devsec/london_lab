@@ -4,8 +4,13 @@
   ignore_errors: yes
   command: clish -c 'lock database override'
 
-- name: Reset to factory defaut on {{ ansible_hostname }}
-  shell: "clish -c 'set fcd revert Gaia_R80_20SP' <<< Yes"
+- name: Revert to factory defaut on {{ ansible_hostname }}
+  shell: clish -c 'set fcd revert Gaia_R80_20SP' <<< Yes
+  register: fcd_revert_result
+
+- name: print the result of fcd revert command
+  debug: 
+    msg: "{{ fcd_revert_result.stdout_lines }}"
 
 - name: Wait 1 minute and then from {{ pi_jumphost }} poll every 10 second for 5 minutes to check if port 22 on {{ ansible_hostname }} default ip 192.168.1.1 is active and contain "OpenSSH"
   wait_for:
