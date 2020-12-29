@@ -1,6 +1,20 @@
-# Main tasks file for mho_update_and_install
+# Main tasks file for mho_reset
 ---
-- name: lock database override on {{ ansible_hostname }}
+- name: Lock database for user admin on {{ ansible_hostname }}
+  raw: lock database override
+  ignore_errors: yes
+  ignore_unreachable: yes
+  register: lock_database_result
+  vars:
+    ansible_user: admin
+    ansible_ssh_pass: admin  # This is the default installation passord in GAIA, it is fine to have them in clear text
+
+- include_tasks: add_user.yml
+  vars:
+    ansible_user: admin
+    ansible_ssh_pass: admin # This is the default installation passord in GAIA, it is fine to have them in clear text
+
+- name: lock database override for user ansible on {{ ansible_hostname }}
   ignore_errors: yes
   command: clish -c 'lock database override'
 

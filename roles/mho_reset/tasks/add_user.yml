@@ -1,0 +1,25 @@
+---
+# This task will create a user called ansible on the MHO
+- name: check if user ansible exists on {{ ansible_hostname }}
+  raw: show user ansible
+  register: show_user_result
+  when: lock_database_result is not search("denied")
+
+- name: Create ansible user if it does not exist on {{ ansible_hostname }}
+  block:
+
+  - name: Add user ansible
+    raw: add user ansible uid 0 homedir /home/ansible
+  
+  - name: Set ansible user RBA role to adminRole
+    raw: add rba user ansible roles adminRole
+  
+  - name: Set ansbile user shell to /bin/bash
+    raw: set user ansible shell /bin/bash
+  
+  - name: Set ansible user password
+    raw: set user ansible password-hash {{ lookup('env','MHO_PWD_HASH') }}
+  
+  when: 
+  - show_user_result is not search("ansible")
+  - lock_database_result is not search("denied")
