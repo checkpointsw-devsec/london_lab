@@ -1,0 +1,17 @@
+---
+# Run with extra vars for example: 
+## ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO1"
+# Avaliable Options 
+## tagrget= MiniRack5-MHO1, MiniRack5-MHO2, MiniRack13-MHO1, MiniRack13-MHO2, Demolab-MHO1, Demolab-MHO2
+- name: Build a dynamic inventory
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+  - role: ../roles/build_inventory
+
+- name:  Set maestro configuration on "{{ target }}"
+  hosts: "{{ target }}"
+  gather_facts: no
+  roles:
+  - role: ../roles/mho_maestro_config
