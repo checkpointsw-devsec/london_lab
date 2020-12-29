@@ -7,4 +7,7 @@
     timeout: 600
     delay: 10
     sleep: 5
-  connection: local
+  delegate_to: "{{ pi_jumphost }}"
+  vars:
+    ansible_user: "{{ lookup('env','PI_USERNAME') }}"
+    ansible_ssh_pass: "{{ lookup('env','PI_PASSWORD') }}"

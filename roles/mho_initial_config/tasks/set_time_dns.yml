@@ -16,4 +16,6 @@
       - clish -s -c 'set ntp active on'
       - clish -s -c 'set ntp server primary pool.ntp.org version 4'
       - clish -s -c 'set timezone Europe / London'
+    async: 180
+    poll: 0
     when: check_dns_result is not search("1.1.1.1")

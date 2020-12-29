@@ -1,6 +1,6 @@
 ---
 - name: Import {{ item.mho_jhf_file  }} to CPUSE on {{ ansible_hostname }} 
-  command: clish -c 'installer import ftp {{ lookup('env','FTP_SRV') }} path {{ item.mho_jhf_file  }} username {{ lookup('env','FTP_UID') }} password {{ lookup('env','FTP_PWD') }} not-interactive'
+  command: clish -c 'installer import ftp {{ lookup('env','FTP_SRV') }} path {{ item.mho_jhf_file  }} username {{ lookup('env','FTP_UID') }} password {{ lookup('env','FTP_PWD') }}'
   register: jhf_import_result
 
 - name: Show the result of CPUSE import on {{ ansible_hostname }}
