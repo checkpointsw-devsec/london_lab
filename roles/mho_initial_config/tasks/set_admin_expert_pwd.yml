@@ -11,7 +11,7 @@
     ansible_hostname == 'Demolab-MHO1' or
     ansible_hostname == 'Demolab-MHO2'
 
-  - name: Set expert password on {{ ansible_hostname }}
+- name: Set expert password on {{ ansible_hostname }}
   # An encrypted representation of the password. Hash version of a password can be generated using the 'grub-md5-crypt' utility.
   # Using hash of deult passord admin if varible is not set 
   ignore_errors: yes
