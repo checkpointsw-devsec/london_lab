@@ -5,7 +5,7 @@
   command: clish -c 'lock database override'
 
 - name: Revert to factory defaut on {{ ansible_hostname }}
-  shell: clish -c 'set fcd revert Gaia_R80_20SP'  <<< $'Yes'
+  shell: clish -c 'set fcd revert Gaia_R80.20SP'  <<< $'Yes'
   register: fcd_revert_result
 
 - name: print the result of fcd revert command
