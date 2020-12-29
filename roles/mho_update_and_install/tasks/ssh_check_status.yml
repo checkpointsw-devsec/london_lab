@@ -4,6 +4,7 @@
     port: 22
     host: "{{ ansible_host }}"
     search_regex: OpenSSH
+    timeout: 600
     delay: 10
     sleep: 5
   connection: local

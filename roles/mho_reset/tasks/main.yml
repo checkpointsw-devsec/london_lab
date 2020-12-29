@@ -12,11 +12,12 @@
   debug: 
     msg: "{{ fcd_revert_result.stdout_lines }}"
 
-- name: Wait 2 minutes and then from {{ pi_jumphost }} poll every 5 seconds for 5 minutes to check if port 22 on {{ ansible_hostname }} default ip {{ mho_default_ip }} is active and contain "OpenSSH"
+- name: Wait 2 minutes and then from {{ pi_jumphost }} poll every 5 seconds for 10 minutes to check if port 22 on {{ ansible_hostname }} default ip {{ mho_default_ip }} is active and contain "OpenSSH"
   wait_for:
     port: 22
     host: "{{ mho_default_ip }}"
     search_regex: OpenSSH
+    timeout: 600
     delay: 120
     sleep: 5
   delegate_to: "{{ pi_jumphost }}"
