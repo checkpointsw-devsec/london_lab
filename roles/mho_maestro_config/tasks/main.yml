@@ -1,0 +1,4 @@
+# Main tasks file for mho_maestro_config
+---
+- include_tasks: ssh_check_status.yml
+- include_tasks: set_maestro.yml

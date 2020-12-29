@@ -1,13 +1,13 @@
 ---
 # This task will set time and DNS if not already set
-- name: Check if DNS is set to 1.1.1.1
+- name: Check if DNS is set to 1.1.1.1 on {{ ansible_hostname }}
   command: clish -c 'show dns primary'
   register: check_dns_result
 
 - name: Make changes when dns is not set to 1.1.1.1
   block:
 
-  - name: Set time format, time zone, NTP, and DNS
+  - name: Set time format, time zone, NTP, and DNS on {{ ansible_hostname }}
     command: "{{ item }}"
     with_items:
       - clish -s -c 'set dns primary 1.1.1.1'

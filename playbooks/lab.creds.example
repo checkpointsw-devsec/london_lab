@@ -1,21 +1,34 @@
 #!/bin/bash
 # Execute with source ./filename
-# Update the file with the credentials and IP of the lab
 
-# Rasbary PI jump host credentials
-export PI_JUMPHOST1=IP_of_PI_jumphost
-export PI_USERNAME=ssh_user_on_PI_jumphost>
-export PI_PASSWORD=password_on_PI_jumphost>
+# Minirack jump host credentials
+export MINIRACK5_JUMPHOST=192.168.233.10
+export MiniRack13_JUMPHOST=192.168.233.20
+export MINIRACKY_JUMPHOST=192.168.233.12
+export PI_USERNAME=admin
+export PI_PASSWORD=vpn123
 
 #Maestro Hypervisor Orchestrator (MHO) credentials and parmeters
-export MHO_IP=IP_of_MHO
-export MHO_TEMP_IP=192.168.1.1
-export MHO_ADMIN=api_user
-export MHO_ADMIN_PASSWORD=api_user_password
+export MINIRACK5_MHO1_IP=192.168.233.200
+export MINIRACK5_MHO1_HOSTNAME=MiniRack5-MHO1
+export MINIRACKX_MHO1_IP=172.23.10.31
+export MINIRACKX_MHO1_HOSTNAME=MiniRackX-MHO1
+export MHO_DEFAULT_IP=192.168.1.1
+export MHO_ADMIN=ansible
+export MHO_ADMIN_PASSWORD=vpn123
+export MHO_PYTHON_INTERPRETER=/usr/bin/python
+## Password hash of vpn123 for MHO gaia admin user
+export MHO_PWD_HASH=\$1\$vK84E1\$bLy6wt7rDTu8sXKERAPtD0
+
+# FTP server for CPUSE update and install
+export FTP_SRV=192.168.233.233
+export FTP_UID=cpuse
+export FTP_PWD=utz08Rg
+export MHO_JHF_FILE=Check_Point_R80_40_JUMBO_HF_Bundle_T89_sk165456_FULL.tgz
 
 # mgmt_api credentials
-#export CHECKPOINT_SERVER=192.168.233.10
+#export CHECKPOINT_SERVER=x.x.x.x
 #export CHECKPOINT_USERNAME=api_user
 #export CHECKPOINT_PASSWORD=api_user_password
 #export CHECKPOINT_CONTEXT=web_api
-#export CHECKPOINT_DOMAIN=mydomainname
+#export CHECKPOINT_DOMAIN=mydomainname #Default SMC User

@@ -1,6 +1,6 @@
 # Main tasks file for mho_initial_config
 ---
-- name: Lock database for user
+- name: Lock database for user admin on {{ ansible_hostname }}
   raw: lock database override
   ignore_errors: yes
   ignore_unreachable: yes
@@ -15,6 +15,6 @@
     ansible_ssh_pass: admin # This is the default installation passord in GAIA, it is fine to have them in clear text
 
 - include_tasks: clear_python_env.yml
-- include_tasks: set_admin_pwd.yml
+- include_tasks: set_admin_expert_pwd.yml
 - include_tasks: set_time_dns.yml
 - include_tasks: set_hostname_network.yml

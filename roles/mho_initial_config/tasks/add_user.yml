@@ -1,11 +1,11 @@
 ---
 # This task will create a user called ansible on the MHO
-- name: check if user ansible exists
+- name: check if user ansible exists on {{ ansible_hostname }}
   raw: show user ansible
   register: show_user_result
   when: lock_database_result is not search("denied")
 
-- name: Create ansible user if it does not exist
+- name: Create ansible user if it does not exist on {{ ansible_hostname }}
   block:
 
   - name: Add user ansible

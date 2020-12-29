@@ -1,31 +1,26 @@
 ---
 # This task will set hostname, routing and managemnet interface if not already set
-- name: Check if hostname is set to "{{ ansible_hostname }}"
+- name: Check if hostname is set to {{ ansible_hostname }} 
   command: hostname
   register: check_hostname_result
 
-- name: Make changes when hostname was not defiend
+- name: Make changes when hostname was not defined 
   block:
 
-  - name: Set hostname, netmask format, routing and management interface
+  - name: Set hostname, netmask format, routing and management interface on {{ ansible_hostname }}
     command: "{{ item }}"
     with_items:
       - clish -s -c 'set hostname {{ ansible_hostname }}'
       - clish -s -c 'set format netmask dotted'
-      - clish -s -c 'set static-route default nexthop gateway address 192.168.1.254 on'
       - clish -s -c 'set static-route default nexthop gateway address 192.168.1.254 off'
       - clish -s -c 'set static-route default nexthop gateway address 172.23.9.1 priority 6 on'
       - clish -s -c 'set static-route default nexthop gateway address 172.23.9.254 priority 3 on'
-#      - clish -s -c 'set management interface Mgmt1'
-#      - clish -s -c 'set interface Mgmt1 state on'
-#      - clish -s -c 'set interface Mgmt1 auto-negotiation on'
-      - clish -s -c 'set management interface eth0'
-      - clish -s -c 'set interface eth0 state on'
-      - clish -s -c 'set interface eth0 auto-negotiation on'
+      - clish -s -c 'set management interface Mgmt1'
+      - clish -s -c 'set interface Mgmt1 state on'
+      - clish -s -c 'set interface Mgmt1 auto-negotiation on'
 
   - name: Set management interface IP to {{ new_ip }} and move on to next task
-    command: clish -s -c 'set interface eth0 ipv4-address {{ new_ip }} mask-length 24'
-    #command: clish -s -c 'set interface Mgmt1 ipv4-address {{ new_ip }} mask-length 24'
+    command: clish -s -c 'set interface Mgmt1 ipv4-address {{ new_ip }} mask-length 24'
     async: 20
     poll: 0
   

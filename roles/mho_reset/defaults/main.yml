@@ -1,2 +1,3 @@
-# Default values for variables in role mho_upload_and_install_jhf
+# Default values for variables in role mho_reset
 ---
+mho_default_ip: "{{ lookup('env','MHO_DEFAULT_IP') }}"

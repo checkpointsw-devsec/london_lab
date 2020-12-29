@@ -1,3 +1,0 @@
-# Default values for variables in role mho_upload_and_install_jhf
----
-mho_jhf_file: "{{ lookup('env','MHO_JHF_FILE') }}"

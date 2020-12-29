@@ -1,0 +1,30 @@
+---
+- name: Touch (create) file /etc/.asg_auto_confirm on {{ ansible_hostname }}
+  file:
+    path: /etc/.asg_auto_confirm
+    state: touch
+
+- name:  Ensure that we have database lock for {{ ansible_user }} on {{ ansible_hostname }}
+  ignore_errors: yes
+  command: clish -c 'lock database override'
+
+- name:  Set maestro configuration on {{ ansible_hostname }}
+  command: "{{ item }}"
+  with_items:
+    - clish -s -c 'set maestro configuration orchestrator-amount 1'
+    - clish -s -c 'set maestro port 1/1/1 qsfp-mode 1G'
+    - clish -s -c 'set maestro port 1/5/1 qsfp-mode 1G'
+    - clish -s -c 'set maestro port 1/6/1 qsfp-mode 1G'
+    - clish -s -c 'set maestro  port 1/47/1 type site_sync'
+     
+- name: Set port 1/47/1 admin-state down on {{ ansible_hostname }}
+  # Run it on MiniRack5-MHO1&2 but not on MiniRack13-MHO1&2
+  command: clish -s -c 'set maestro  port 1/47/1 admin-state down'
+  when:  
+    ansible_hostname == 'MiniRack5-MHO1' or
+    ansible_hostname == 'MiniRack5-MHO2'
+  
+- name: Remove file /etc/.asg_auto_confirm on {{ ansible_hostname }}
+  file:
+    path: /etc/.asg_auto_confirm
+    state: absent
