@@ -2,29 +2,53 @@
 # Execute with source ./filename
 
 # Minirack jump host credentials
-export MINIRACK5_JUMPHOST=192.168.233.10
-export MiniRack13_JUMPHOST=192.168.233.20
-export MINIRACKY_JUMPHOST=192.168.233.12
-export PI_USERNAME=admin
-export PI_PASSWORD=vpn123
+export MINIRACK5_JUMPHOST=a.a.a.a
+export MiniRack13_JUMPHOST=b.b.b.b
+export DEMOLAB_JUMPHOST=c.c.c.c
+export PI_USERNAME=pi
+export PI_PASSWORD=pi_pass
 
 #Maestro Hypervisor Orchestrator (MHO) credentials and parmeters
-export MINIRACK5_MHO1_IP=192.168.233.200
-export MINIRACK5_MHO1_HOSTNAME=MiniRack5-MHO1
-export MINIRACKX_MHO1_IP=172.23.10.31
-export MINIRACKX_MHO1_HOSTNAME=MiniRackX-MHO1
+# Minirack 5
+export MINIRACK5_MHO1_IP=d.d.d.a
+export MINIRACK5_MHO1_HOSTNAME=Hostname_MHO1
+export MINIRACK5_MHO1_Port=1
+export MINIRACK5_MHO2_IP=d.d.d.b
+export MINIRACK5_MHO2_HOSTNAME=Hostname_MHO2
+export MINIRACK5_MHO2_Port=1
+export MINIRACK5_Default_Route=d.d.d.z
+# Minirack 13
+export MINIRACK13_MHO1_IP=d.d.d.c
+export MINIRACK13_MHO1_HOSTNAME=Hostname_MHO3
+export MINIRACK13_MHO1_Port=1
+export MINIRACK13_MHO2_IP=d.d.d.d
+export MINIRACK13_MHO2_HOSTNAME=Hostname_MHO4
+export MINIRACK13_MHO2_Port=2
+export MINIRACK13_Default_Route=d.d.d.z
+# Demolab
+export DEMOLAB_MHO1_IP=e.e.e.a
+export DEMOLAB_MHO1_HOSTNAME=Hostname_MHO5
+export DEMOLAB_MHO1_Port=1
+export DEMOLAB_MHO2_IP=e.e.e.b
+export DEMOLAB_MHO2_HOSTNAME=Hostname_MHO6
+export DEMOLAB_MHO2_Port=2
+export DEMOLAB_Default_Route=e.e.e.z
+# Factory Clear Default (FCD)
+#When connecting via Raspberry Pi, each Pi should have an alias IP address configured which is on the default subnet (192.168.1.x) to check for connectivity to the MHO after FCD
+#Use sudo ifconfig ethX:0 192.168.1.Y/24 for example
 export MHO_DEFAULT_IP=192.168.1.1
-export MHO_ADMIN=ansible
-export MHO_ADMIN_PASSWORD=vpn123
-export MHO_PYTHON_INTERPRETER=/usr/bin/python
-## Password hash of vpn123 for MHO gaia admin user
+# Credentials
+export MHO_ADMIN=ansibleuser_on_MHO
+export MHO_ADMIN_PASSWORD=ansiblepass_on_MHO
+export MHO_PYTHON_INTERPRETER=/opt/CPsuite-R80.20/fw1/Python/bin/python
+## Password hash of vpn123 for MHO gaia admin user - take from existing account example
 export MHO_PWD_HASH=\$1\$vK84E1\$bLy6wt7rDTu8sXKERAPtD0
 
 # FTP server for CPUSE update and install
-export FTP_SRV=192.168.233.233
-export FTP_UID=cpuse
-export FTP_PWD=utz08Rg
-export MHO_JHF_FILE=Check_Point_R80_40_JUMBO_HF_Bundle_T89_sk165456_FULL.tgz
+export FTP_SRV=FTP_Server_IP
+export FTP_UID=ftp_user
+export FTP_PWD=ftp_pass
+export MHO_JHF_FILE=Check_Point_R80_20SP_JHF_MAIN_Bundle_MHO_T295_FULL.tgz
 
 # mgmt_api credentials
 #export CHECKPOINT_SERVER=x.x.x.x
