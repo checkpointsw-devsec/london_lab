@@ -42,7 +42,7 @@
   - { hostname: "{{ lookup('env','DEMOLAB_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','DEMOLAB_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", mho_port_num: "{{ lookup('env','DEMOLAB_MHO1_Port') }}" }
   - { hostname: "{{ lookup('env','DEMOLAB_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','DEMOLAB_MHO2_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", mho_port_num: "{{ lookup('env','DEMOLAB_MHO2_Port') }}" }
 
-- name: Add Rasberry PI jump hosts to inventory
+- name: Add Rasberry PI jump hosts to inventory.
   add_host:
     hostname: "{{ item.hostname }}"
     ansible_hostname: "{{ item.hostname }}"
