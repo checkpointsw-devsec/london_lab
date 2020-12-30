@@ -11,16 +11,16 @@
 - name:  Set maestro configuration on {{ ansible_hostname }}
   command: "{{ item }}"
   with_items:
-    - clish -s -c 'set maestro port 1/1/1 qsfp-mode 1G'
-    - clish -s -c 'set maestro port 1/5/1 qsfp-mode 1G'
-    - clish -s -c 'set maestro port 1/6/1 qsfp-mode 1G'
-    - clish -s -c 'set maestro  port 1/47/1 type site_sync'
+    - clish -s -c 'set maestro port {{ mho_port_num }}/1/1 qsfp-mode 1G'
+    - clish -s -c 'set maestro port {{ mho_port_num }}/5/1 qsfp-mode 1G'
+    - clish -s -c 'set maestro port {{ mho_port_num }}/6/1 qsfp-mode 1G'
      
-- name: Set port 1/47/1 admin-state down on {{ ansible_hostname }}
+- name: Set port 1/47/1 as site sync and admin-state down on {{ ansible_hostname }}
   # Run it on MiniRack5-MHO1&2 but not on MiniRack13-MHO1&2
   command: "{{ item }}"
   with_items:
   - clish -s -c 'set maestro configuration orchestrator-amount 1'
+  - clish -s -c 'set maestro  port 1/47/1 type site_sync'
   - clish -s -c 'set maestro  port 1/47/1 admin-state down'
   when:  
     ansible_hostname == 'MiniRack5-MHO1' or

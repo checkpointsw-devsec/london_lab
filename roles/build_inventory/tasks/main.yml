@@ -5,6 +5,8 @@
     hostname: jump.to.{{ item.hostname }}
     ansible_hostname: "{{ item.hostname }}"
     ansible_host: "{{ item.ansible_host}}"
+    mho_def_gw: "{{ item.mho_def_gw}}"
+    mho_port_num: "{{ item.mho_port_num}}"
     new_ip: "{{ item.new_ip }}"
     groups:
       - jump.to.mho
@@ -13,12 +15,12 @@
     ansible_python_interpreter: "{{ lookup('env','MHO_PYTHON_INTERPRETER') }}"
     ansible_ssh_common_args: -o ProxyCommand="sshpass -p '{{ lookup('env','PI_PASSWORD') }}' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -q {{ lookup('env','PI_USERNAME') }}@{{ item.pi_jumphost }} -p 22"
   with_items:
-  - { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK5_MHO1_IP') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK5_MHO2_IP') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK13_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK13_MHO1_IP') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK13_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK13_MHO2_IP') }}" }
-  - { hostname: "{{ lookup('env','DEMOLAB_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", new_ip: "{{ lookup('env','DEMOLAB_MHO1_IP') }}" }
-  - { hostname: "{{ lookup('env','DEMOLAB_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", new_ip: "{{ lookup('env','DEMOLAB_MHO2_IP') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK5_MHO1_IP') }}", mho_def_gw: "{{ lookup('env','MINIRACK5_Default_Route') }}", mho_port_num: "{{ lookup('env','MINIRACK5_MHO1_Port') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK5_MHO2_IP') }}", mho_def_gw: "{{ lookup('env','MINIRACK5_Default_Route') }}", mho_port_num: "{{ lookup('env','MINIRACK5_MHO2_Port') }}"  }
+  - { hostname: "{{ lookup('env','MINIRACK13_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK13_MHO1_IP') }}", mho_def_gw: "{{ lookup('env','MINIRACK13_Default_Route') }}", mho_port_num: "{{ lookup('env','MINIRACK13_MHO1_Port') }}"  }
+  - { hostname: "{{ lookup('env','MINIRACK13_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}", new_ip: "{{ lookup('env','MINIRACK13_MHO2_IP') }}", mho_def_gw: "{{ lookup('env','MINIRACK13_Default_Route') }}", mho_port_num: "{{ lookup('env','MINIRACK13_MHO2_Port') }}"   }
+  - { hostname: "{{ lookup('env','DEMOLAB_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", new_ip: "{{ lookup('env','DEMOLAB_MHO1_IP') }}", mho_def_gw: "{{ lookup('env','DEMOLAB_Default_Route') }}", mho_port_num: "{{ lookup('env','DEMOLAB_MHO1_Port') }}" }
+  - { hostname: "{{ lookup('env','DEMOLAB_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MHO_DEFAULT_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", new_ip: "{{ lookup('env','DEMOLAB_MHO2_IP') }}", mho_def_gw: "{{ lookup('env','DEMOLAB_Default_Route') }}", mho_port_num: "{{ lookup('env','DEMOLAB_MHO2_Port') }}" }
 
 - name: Add Maestro Hypervisor Orchestrator (MHO) hosts to inventory
   add_host:
@@ -26,20 +28,21 @@
     ansible_hostname: "{{ item.hostname }}"
     ansible_host: "{{ item.ansible_host }}"
     pi_jumphost: "{{ item.pi_jumphost }}"
+    mho_port_num: "{{ item.mho_port_num}}"
     groups:
       - mho
     ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
     ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
     ansible_python_interpreter: "{{ lookup('env','MHO_PYTHON_INTERPRETER') }}"
   with_items:
-  - { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK5_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK5_MHO2_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK13_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK13_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}" }
-  - { hostname: "{{ lookup('env','MINIRACK13_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK13_MHO2_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}" }
-  - { hostname: "{{ lookup('env','DEMOLAB_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','DEMOLAB_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}" }
-  - { hostname: "{{ lookup('env','DEMOLAB_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','DEMOLAB_MHO2_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK5_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}", mho_port_num: "{{ lookup('env','MINIRACK5_MHO1_Port') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK5_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK5_MHO2_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK5_JUMPHOST') }}", mho_port_num: "{{ lookup('env','MINIRACK5_MHO2_Port') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK13_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK13_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}", mho_port_num: "{{ lookup('env','MINIRACK13_MHO1_Port') }}" }
+  - { hostname: "{{ lookup('env','MINIRACK13_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','MINIRACK13_MHO2_IP') }}", pi_jumphost: "{{ lookup('env','MINIRACK13_JUMPHOST') }}", mho_port_num: "{{ lookup('env','MINIRACK13_MHO2_Port') }}" }
+  - { hostname: "{{ lookup('env','DEMOLAB_MHO1_HOSTNAME') }}", ansible_host: "{{ lookup('env','DEMOLAB_MHO1_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", mho_port_num: "{{ lookup('env','DEMOLAB_MHO1_Port') }}" }
+  - { hostname: "{{ lookup('env','DEMOLAB_MHO2_HOSTNAME') }}", ansible_host: "{{ lookup('env','DEMOLAB_MHO2_IP') }}", pi_jumphost: "{{ lookup('env','DEMOLAB_JUMPHOST') }}", mho_port_num: "{{ lookup('env','DEMOLAB_MHO2_Port') }}" }
 
-- name: Add Rasbary PI jump hosts to inventory
+- name: Add Rasberry PI jump hosts to inventory
   add_host:
     hostname: "{{ item.hostname }}"
     ansible_hostname: "{{ item.hostname }}"

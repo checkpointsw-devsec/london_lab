@@ -26,7 +26,7 @@
   hosts: "{{ target }}"
   gather_facts: no
   roles:
-  - role: ../roles/mho_update_and_install 
+   - role: ../roles/mho_update_and_install 
 
 - name:  Set maestro configuration on "{{ target }}"
   hosts: "{{ target }}"
