@@ -43,6 +43,3 @@ case $reset in
         exit 64
         ;;
 esac
-
-
-sudo ./t-rex-64 --cfg $configfile -f $testfile -c 4 -m $multiplier -d $duration
