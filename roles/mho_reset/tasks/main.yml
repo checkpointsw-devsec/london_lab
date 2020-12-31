@@ -8,6 +8,9 @@
   vars:
     ansible_user: admin
     ansible_ssh_pass: admin  # This is the default installation passord in GAIA, it is fine to have them in clear text
+  when:
+    ansible_hostname != 'Demolab-MHO1' or
+    ansible_hostname != 'Demolab-MHO2' 
 
 - include_tasks: add_user.yml
   vars:

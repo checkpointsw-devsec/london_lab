@@ -2,7 +2,7 @@
 # Run with extra vars for example: 
 ## ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO1"
 # Avaliable Options 
-## tagrget= MiniRack5-MHO1, MiniRack5-MHO2, MiniRack13-MHO1, MiniRack13-MHO2, Demolab-MHO1, Demolab-MHO2
+## target= MiniRack5-MHO1, MiniRack5-MHO2, MiniRack13-MHO1, MiniRack13-MHO2, Demolab-MHO1, Demolab-MHO2
 - name: Build a dynamic inventory
   tags: always 
   hosts: localhost
