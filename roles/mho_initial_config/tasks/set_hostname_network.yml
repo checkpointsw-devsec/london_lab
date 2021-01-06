@@ -19,7 +19,7 @@
       - clish -s -c 'set interface Mgmt1 auto-negotiation on'
 
   - name: Set management interface IP to {{ new_ip }} and move on to next task
-    command: clish -s -c 'set interface Mgmt1 ipv4-address {{ new_ip }} mask-length 24'
+    command: clish -s -c 'set interface Mgmt1 ipv4-address {{ new_ip }} mask-length {{ mask_length }}'
     async: 20
     poll: 0
   

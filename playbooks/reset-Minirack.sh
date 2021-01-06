@@ -30,16 +30,16 @@ case $reset in
         ansible-playbook MHO-reset.yml -e "target=MiniRack13-MHO2"
         ;;
 
-        demolab)
+        dl)
         echo "Resetting DemoLab. MHO 1 & MHO 2"
         echo "reset EMEA-Orch-1"
-        ansible-playbook MHO-reset.yml -e "target=EMEA-Orch-1"
+        ansible-playbook MHO-reset.yml -e "target=EMEA-Orch-1" 
         echo "reset EMEA-Orch-2"
         ansible-playbook MHO-reset.yml -e "target=EMEA-Orch-2"
         ;;
 
         *)
-        printf "Usage: `basename $0` < mr5 | mr13 | mrboth | demolab >\n"
+        printf "Usage: `basename $0` < mr5 | mr13 | mrboth | dl >\n"
         exit 64
         ;;
 esac

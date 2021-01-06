@@ -1,0 +1,6 @@
+---
+- name: Unset Python enviroment vars for ansible user on {{ ansible_hostname }}
+  raw: echo -e "unset PYTHONHOME\nunset PYTHONPATH" >> .bashrc
+  when: 
+  - show_user_result is not search("ansible")
+  - lock_database_result is not search("denied")

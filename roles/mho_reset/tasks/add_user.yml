@@ -5,7 +5,7 @@
   register: show_user_result
   when: lock_database_result is not search("denied")
 
-- name: Create ansible user if it does not exist on {{ ansible_hostname }}
+- name: CREATING ansible user if it does not exist on {{ ansible_hostname }}
   block:
 
   - name: Add user ansible

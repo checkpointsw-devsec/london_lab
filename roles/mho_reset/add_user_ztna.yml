@@ -1,0 +1,25 @@
+---
+# This task will create a user called ztna on the MHO
+- name: check if user ztna exists on {{ ansible_hostname }}
+  raw: show user ztna
+  register: show_user_result
+  when: lock_database_result is not search("denied")
+
+- name: Create ansible user if it does not exist on {{ ansible_hostname }}
+  block:
+
+  - name: Add user ztna
+    raw: add user ztna uid 0 homedir /home/ztna
+  
+  - name: Set ztna user RBA role to adminRole
+    raw: add rba user ztna roles adminRole
+  
+  - name: Set ztna user shell to /bin/bash
+    raw: set user ztna shell /bin/bash
+  
+  - name: Set ztna user password
+    raw: set user ztna password-hash {{ lookup('env','MHO_PWD_HASH') }}
+  
+  when: 
+  - show_user_result is not search("ztna")
+  - lock_database_result is not search("denied")

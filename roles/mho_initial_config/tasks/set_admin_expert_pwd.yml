@@ -7,9 +7,6 @@
   with_items:
     - clish -c 'lock database override'
     - clish -s -c 'set user admin password-hash {{ lookup('env','MHO_PWD_HASH') | default('$1$hl94E1$fEB/9GEHoAlopP5N5IxiV/') }}'
-  when:  
-    ansible_hostname == 'Demolab-MHO1' or
-    ansible_hostname == 'Demolab-MHO2'
 
 - name: Set expert password on {{ ansible_hostname }}
   # An encrypted representation of the password. Hash version of a password can be generated using the 'grub-md5-crypt' utility.

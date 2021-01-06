@@ -7,15 +7,14 @@
   register: lock_database_result
   vars:
     ansible_user: admin
-    ansible_ssh_pass: admin  # This is the default installation passord in GAIA, it is fine to have them in clear text
-  when:
-    ansible_hostname != 'Demolab-MHO1' or
-    ansible_hostname != 'Demolab-MHO2' 
+    ansible_ssh_pass: "{{ lookup('env','MHO_Pass') }}"
 
 - include_tasks: add_user.yml
   vars:
     ansible_user: admin
-    ansible_ssh_pass: admin # This is the default installation passord in GAIA, it is fine to have them in clear text
+    ansible_ssh_pass: "{{ lookup('env','MHO_Pass') }}"
+
+- include_tasks: clear_python_env.yml
 
 - name: lock database override for user ansible on {{ ansible_hostname }}
   ignore_errors: yes
