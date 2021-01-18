@@ -25,7 +25,7 @@
   register: show_installer_result
   until: show_installer_result is regex("Status:\s*Installed")
   retries: 100
-  delay: 5
+  delay: 20
 
 - name: Show result of CPUSE install on {{ ansible_hostname }}
   debug:
