@@ -33,9 +33,9 @@ case $reset in
         dl)
         echo "Resetting DemoLab. MHO 1 & MHO 2"
         echo "reset EMEA-Orch-1"
-        ansible-playbook MHO-reset.yml -e "target=EMEA-Orch-1" 
+        ansible-playbook MHO-reset.yml -v -e "target=EMEA-Orch-1" 
         echo "reset EMEA-Orch-2"
-        ansible-playbook MHO-reset.yml -e "target=EMEA-Orch-2"
+        ansible-playbook MHO-reset.yml -v -e "target=EMEA-Orch-2"
         ;;
 
         *)

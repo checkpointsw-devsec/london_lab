@@ -20,7 +20,23 @@
   ignore_errors: yes
   command: clish -c 'lock database override'
 
-- name: Revert to factory defaut on {{ ansible_hostname }}
+- name: Touch (create) file /etc/.asg_auto_confirm on {{ ansible_hostname }}
+  file:
+    path: /etc/.asg_auto_confirm
+    state: touch
+
+- name: delete existing security groups on {{ ansible_hostname }}
+  shell: clish -c 'delete maestro security-group id {{ item }} '
+  with_sequence: start=1 end=8
+ 
+- name: commit security group changes on {{ ansible_hostname }}
+  shell: clish -c 'set maestro security-group apply-new-config' 
+
+- name: pause for reset to begin for 3 minutes
+  pause: 
+    minutes: 3
+    
+- name: reset the MHO to FCD on {{ ansible_hostname }}
   shell: clish -c 'set fcd revert Gaia_R80.20SP'  <<< $'Yes'
   register: fcd_revert_result
 
