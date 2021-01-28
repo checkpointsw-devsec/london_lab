@@ -12,6 +12,7 @@
   command: "{{ item }}"
   with_items:
     - clish -s -c 'set maestro port {{ mho_port_num }}/1/1 qsfp-mode 1G'
+    - clish -s -c 'set maestro port {{ mho_port_num }}/2/1 qsfp-mode 1G'
     - clish -s -c 'set maestro port {{ mho_port_num }}/5/1 qsfp-mode 1G'
     - clish -s -c 'set maestro port {{ mho_port_num }}/6/1 qsfp-mode 1G'
      

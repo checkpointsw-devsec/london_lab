@@ -4,8 +4,8 @@ reset=$1
 case $reset in
         mr5)
         echo "***Resetting Mini Rack 5. MHO 1 & MHO 2***"
-        echo "reset MiniRack5-MHO1"
-        ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO1"
+        #echo "reset MiniRack5-MHO1"
+        #ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO1"
         echo "reset MiniRack5-MHO2"
         ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO2"
         ;;
@@ -33,9 +33,9 @@ case $reset in
         dl)
         echo "Resetting DemoLab. MHO 1 & MHO 2"
         echo "reset EMEA-Orch-1"
-        ansible-playbook MHO-reset.yml -v -e "target=EMEA-Orch-1" 
+        ansible-playbook MHO-reset.yml -e "target=EMEA-Orch-1" 
         echo "reset EMEA-Orch-2"
-        ansible-playbook MHO-reset.yml -v -e "target=EMEA-Orch-2"
+        ansible-playbook MHO-reset.yml -e "target=EMEA-Orch-2"
         ;;
 
         *)
