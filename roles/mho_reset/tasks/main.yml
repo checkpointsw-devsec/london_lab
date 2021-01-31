@@ -32,10 +32,10 @@
 - name: commit security group changes on {{ ansible_hostname }}
   shell: clish -c 'set maestro security-group apply-new-config' 
 
-- name: pause for reset to begin for 3 minutes
+- name: pause for reset to begin for 1 minutes
   pause: 
-    minutes: 3
-    
+    minutes: 1
+
 - name: reset the MHO to FCD on {{ ansible_hostname }}
   shell: clish -c 'set fcd revert Gaia_R80.20SP'  <<< $'Yes'
   register: fcd_revert_result
