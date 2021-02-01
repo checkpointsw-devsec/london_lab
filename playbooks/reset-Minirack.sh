@@ -4,8 +4,8 @@ reset=$1
 case $reset in
         mr5)
         echo "***Resetting Mini Rack 5. MHO 1 & MHO 2***"
-        #echo "reset MiniRack5-MHO1"
-        #ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO1"
+        echo "reset MiniRack5-MHO1"
+        ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO1"
         echo "reset MiniRack5-MHO2"
         ansible-playbook MHO-reset.yml -e "target=MiniRack5-MHO2"
         ;;

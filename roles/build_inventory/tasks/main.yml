@@ -9,7 +9,7 @@
     mho_port_num: "{{ item.mho_port_num }}"
     new_ip: "{{ item.new_ip }}"
     mask_length: "{{ item.mask_length }}"
-        groups:
+    groups:
       - jump.to.mho
     ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
     ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
