@@ -9,7 +9,7 @@
     mho_port_num: "{{ item.mho_port_num }}"
     new_ip: "{{ item.new_ip }}"
     mask_length: "{{ item.mask_length }}"
-    groups:
+        groups:
       - jump.to.mho
     ansible_user: "{{ lookup('env','MHO_ADMIN') }}"
     ansible_ssh_pass: "{{ lookup('env','MHO_ADMIN_PASSWORD') }}"
@@ -29,7 +29,7 @@
     ansible_hostname: "{{ item.hostname }}"
     ansible_host: "{{ item.ansible_host }}"
     pi_jumphost: "{{ item.pi_jumphost }}"
-    mho_port_num: "{{ item.mho_port_num }}"
+    mho_port_num: "{{ item.mho_port_num}}"
     jhfa_file: "{{ item.jhfa_file }}"
     groups:
       - mho
