@@ -1,6 +1,8 @@
 ---
 - name: Turn off reverse DNS lookups for the SSH daemon on {{ ansible_hostname }} 
   command: "{{item}}"
+  args:
+    warn: false
   with_items:
     - sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config # This removes time out problems if the Gaia machine does not have access to DNS server
     - service sshd restart

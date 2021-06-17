@@ -53,6 +53,8 @@ export DEMOLAB_Default_Route=b.b.b.Z
 export DEMOLAB_Mask=22
 export DL_MHO_JHF_FILE=Check_Point_R80_20SP_JHF_MAIN_Bundle_MHO_T313_FULL.tgz
 # Factory Clear Default (FCD)
+#When connecting via Raspberry Pi, each Pi should have an alias IP address configured which is on the default subnet (192.168.1.x) to check for connectivity to the MHO after FCD
+#Use sudo ifconfig ethX:0 192.168.1.Y/24 for example
 export MHO_DEFAULT_IP=192.168.1.1
 # Credentials
 export MHO_ADMIN=admin
